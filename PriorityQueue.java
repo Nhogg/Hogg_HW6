@@ -1,7 +1,7 @@
 
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Nathan Hogg / Section 002
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
