@@ -64,11 +64,24 @@ public class ProblemSolutions {
      */
 
   public static int lastBoulder(int[] boulders) {
+      PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
+      for (int boulder : boulders) {
+          queue.add(boulder);
+      }
 
-      //
-      // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME / SECTION # ABOVE
-      //
-      return -1;
+      while (queue.size() > 1) {
+          int x = queue.poll();
+          int y = queue.poll();
+          if (x != y) {
+              queue.offer(x - y);
+          }
+      }
+      if (queue.isEmpty()) {
+          return 0;
+      } else {
+          return (queue.poll());
+      }
+
   }
 
 
@@ -90,11 +103,20 @@ public class ProblemSolutions {
      */
 
     public static ArrayList<String> showDuplicates(ArrayList<String> input) {
+        HashMap<String, Integer> count = new HashMap<>();
+        for (String s : input) {
+            count.put(s, count.getOrDefault(s, 0) + 1);
+        }
 
-        //
-        //  YOUR CODE GOES HERE
-        //
-        return new ArrayList<>();  // Make sure result is sorted in ascending order
+        ArrayList<String> result = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : count.entrySet()) {
+            if (entry.getValue() > 1) {
+                result.add(entry.getKey());
+            }
+        }
+        Collections.sort(result);
+
+        return result;
 
     }
 
@@ -130,10 +152,22 @@ public class ProblemSolutions {
      */
 
     public static ArrayList<String> pair(int[] input, int k) {
+        if (input == null) {
+            return null;
+        }
+        Set<String> pairs = new HashSet<>();
+        Set<Integer> duplicates = new HashSet<>();
+        for (int i : input) {
+            int complement = k - i;
+            if (duplicates.contains(complement)) {
+                String pair = "(" + Math.min(i, complement) + ", " + Math.max(i, complement ) + ")";
+                pairs.add(pair);
+            }
+            duplicates.add(i);
+        }
+        ArrayList<String> result = new ArrayList<>(pairs);
+        Collections.sort(result);
 
-        //
-        //  YOUR CODE GOES HERE
-        //
-        return new ArrayList<>();  // Make sure returned lists is sorted as indicated above
+        return result;
     }
 }
